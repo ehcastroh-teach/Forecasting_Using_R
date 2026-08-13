@@ -3,7 +3,6 @@
 **Topic:** Time series forecasting, feature selection, linear regression  
 **Language:** R  
 **Level:** Introductory - Intermediate  
-**Original context:** Introductory machine learning course (Fall 2017)
 
 ---
 
