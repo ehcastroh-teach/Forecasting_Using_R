@@ -1,0 +1,6 @@
+.Rhistory
+.RData
+.Rproj.user/
+
+# PDF contains personal attribution and cannot be edited
+*.pdf
