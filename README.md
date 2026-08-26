@@ -2,7 +2,7 @@
 
 **Topic:** Time series forecasting, feature selection, linear regression  
 **Language:** R  
-**Level:** Introductory - Intermediate  
+**Level:** Introductory - Intermediate
 
 ---
 
@@ -38,10 +38,10 @@ Here, we predict **monthly U.S. sales of the Hyundai Elantra** using:
 
 | File | Description |
 |---|---|
-| `Elantra142-Fall2017.csv` | Core dataset: monthly sales + economic indicators (2010-2017) |
-| `Elantra142-Fall2017-RGDP.csv` | Adds a numeric month index and month factor for seasonality analysis |
-| `Elantra142-Fall2017-RGDP2.csv` | Adds Real GDP (RGDP) as an alternative predictor |
-| `multiTimeline.csv` | Google Trends data for Elantra search volume |
+| `elantra_sales.csv` | Core dataset: monthly sales + economic indicators (2010-2017) |
+| `elantra_sales_monthly.csv` | Adds a numeric month index and month factor for seasonality analysis |
+| `elantra_sales_rgdp.csv` | Adds Real GDP (RGDP) as an alternative predictor |
+| `elantra_google_trends.csv` | Google Trends data for Elantra search volume |
 
 **Key columns:**
 - `ElantraSales` - monthly units sold (the target variable)
@@ -89,7 +89,7 @@ Raw data
 ### Step 1 - Load Data and Split by Time
 
 ```r
-elantra <- read.csv("Elantra142-Fall2017.csv")
+elantra <- read.csv("elantra_sales.csv")
 
 elantra.train <- filter(elantra, Year < 2015)
 elantra.test  <- filter(elantra, Year > 2014)
@@ -148,7 +148,7 @@ sub_ElantraSales <- lm(ElantraSales ~ ElantraQueries + CPI.All, data = elantra.t
 summary(sub_ElantraSales)
 ```
 
-![Narrowed Model - Coefficient Plot](images/narrowed%20model.png)
+![Narrowed Model - Coefficient Plot](images/narrowed_model.png)
 
 ![VIF - Narrowed Model](images/vif.png)
 
@@ -183,11 +183,11 @@ seasonal_ES <- lm(ElantraSales ~ MonthFactor + Unemployment +
 
 **EDA - Sales by Month:**
 
-![Variable Error Plot](images/variable%20error%20plot.png)
+![Variable Error Plot](images/variable_error_plot.png)
 
 This scatter plot shows each month colored differently. The visual clustering confirms that month of year is a meaningful signal worth including.
 
-![Seasonal Model - Coefficient Plot](images/seasonal%20model.png)
+![Seasonal Model - Coefficient Plot](images/seasonal_model.png)
 
 ---
 
@@ -205,7 +205,7 @@ seasonal_ES3 <- lm(ElantraSales ~ MonthFactor + ElantraQueries + CPI.All,
                    data = elantra.train)
 ```
 
-![Seasonality LM - Final](images/sesonality%20lm.png)
+![Seasonality LM - Final](images/seasonality_lm.png)
 
 ---
 
@@ -217,7 +217,7 @@ Taking the best features discovered across experiments:
 combination_ES <- lm(ElantraSales ~ MonthFactor + CPI.All, data = elantra.train)
 ```
 
-![Combined Model - Coefficient Plot](images/combined%20model.png)
+![Combined Model - Coefficient Plot](images/combined_model.png)
 
 Evaluate OSR2 for each model and compare. The model with the highest OSR2 on the test set is the best generalizer.
 
@@ -226,13 +226,13 @@ Evaluate OSR2 for each model and compare. The model with the highest OSR2 on the
 ### Step 9 - Explore RGDP as a Predictor
 
 ```r
-elantra3 <- read.csv("Elantra142-Fall2017-RGDP2.csv")
+elantra3 <- read.csv("elantra_sales_rgdp.csv")
 
 custom_ES3 <- lm(ElantraSales ~ MonthFactor + ElantraQueries + CPI.Energy + RGDP,
                  data = elantra3.train)
 ```
 
-![RGDP Model - Coefficient Plot](images/rgdp%20model.png)
+![RGDP Model - Coefficient Plot](images/rgdp_model.png)
 
 Real GDP is a broader economic indicator than CPI. This section explores whether it adds predictive power or introduces redundancy.
 
@@ -295,7 +295,7 @@ install.packages(c("dplyr", "ggplot2", "GGally", "car"))
 
 ## Credits and Acknowledgements
 
-This project was originally developed as a course assignment in an introductory machine learning class (Fall 2017). The problem structure - predicting Hyundai Elantra sales using economic indicators and search query data - was adapted from a textbook exercise on applied regression.
+This project predicts Hyundai Elantra sales using economic indicators and search query data, adapted from a textbook exercise on applied regression.
 
 Recommended textbooks referenced throughout this walkthrough:
 - James, G., Witten, D., Hastie, T., and Tibshirani, R. - *An Introduction to Statistical Learning*
