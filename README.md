@@ -289,7 +289,7 @@ install.packages(c("dplyr", "ggplot2", "GGally", "car"))
 
 - *Introduction to Statistical Learning* - Chapter 3 for linear regression foundations
 - *Forecasting: Principles and Practice* - free online at otexts.com/fpp3
-- R documentation: `?lm`, `?vif`, `?ggcoef`
+- R documentation: `?lm`, `?vif` (from the `car` package), `?GGally::ggcoef`
 
 ---
 
